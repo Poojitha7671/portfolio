@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Portfolio</title>
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #7eee46, #55fbae);
+      color: #fff;
+      line-height: 1.6;
+    }
+    a {
+      color: #697225;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #979a68;
+    }
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+    }
+    /* Header / Nav */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      background: rgba(56, 74, 52, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    nav a {
+      margin-left: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    nav a.active {
+      border-bottom: 2px solid #ffdd57;
+      padding-bottom: 2px;
+    }
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    }
+    .hero p {
+      font-size: 1.5rem;
+      opacity: 0.85;
+    }
+    .btn-primary {
+      background: #43e8cf;
+      color: #d54646;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 5px 15px rgba(101, 251, 203, 0.5);
+    }
+    .btn-primary:hover {
+      background: #adff31;
+      box-shadow: 0 7px 20px rgba(245,197,24,0.8);
+    }
+    /* Sections */
+    section {
+      margin: 4rem 0;
+    }
+    /* About */
+    #about p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      line-height: 1.8;
+      color: #eee;
+    }
+    /* Skills */
+    .skill {
+      margin-bottom: 1rem;
+    }
+    .skill-label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .skill-bar {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      height: 20px;
+    }
+    .skill-progress {
+      height: 100%;
+      background: #ffa357;
+      width: 0;
+      border-radius: 20px 0 0 20px;
+      transition: width 1.2s ease-in-out;
+    }
+    /* Portfolio Grid */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 1.5rem;
+    }
+    .portfolio-item {
+      background: rgba(239, 240, 224, 0.905);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(214, 130, 130, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(85%);
+      transition: filter 0.3s ease;
+    }
+    .portfolio-item:hover img {
+      filter: brightness(100%);
+    }
+    .portfolio-info {
+      padding: 1rem;
+    }
+    .portfolio-info h3 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .portfolio-info p {
+      font-size: 0.9rem;
+      color: #ddd;
+    }
+    .portfolio-item:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    /* Contact Form */
+    form {
+      max-width: 600px;
+      background: rgba(202, 187, 187, 0.3);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(197, 192, 187, 0.5);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      margin-bottom: 1.2rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    input:focus, textarea:focus {
+      box-shadow: 0 0 8px #7cbd3f;
+    }
+    .btn-submit {
+      background: #38d36c;
+      color: #333;
+      font-weight: 700;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+    .btn-submit:hover {
+      background: #f5c518;
+    }
+    .error {
+      color: #ff6b6b;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      nav a {
+        margin-left: 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="container">
+  <div><strong>MyPortfolio</strong></div>
+  <nav>
+    <a href="#about" class="nav-link active">About</a>
+    <a href="#skills" class="nav-link">Skills</a>
+    <a href="#portfolio" class="nav-link">Portfolio</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="hero" id="hero">
+    <h1>Hi, I'm <span style="color:#ffdd57;">Poojitha Reddy</span></h1>
+    <p>Frontend Developer | UI/UX Enthusiast | Creative Problem Solver</p>
+    <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+  </section>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      Passionate about building beautiful and functional web experiences. I specialize in crafting responsive and interactive user interfaces with modern technologies.
+    </p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skill">
+      <div class="skill-label">HTML & CSS</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-label">JavaScript</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="85%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-label">React</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="75%"></div></div>
+    </div>
+    <div class="skill">
+      <div class="skill-label">UI/UX Design</div>
+      <div class="skill-bar"><div class="skill-progress" data-progress="80%"></div></div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item" tabindex="0">
+        <img src="https://source.unsplash.com/400x300/?website" alt="Project 1" />
+        <div class="portfolio-info">
+          <h3>Project One</h3>
+          <p>Responsive website built with HTML, CSS & JS.</p>
+        </div>
+      </div>
+      <div class="portfolio-item" tabindex="0">
+        <img src="https://source.unsplash.com/400x300/?app" alt="Project 2" />
+        <div class="portfolio-info">
+          <h3>Mobile App UI</h3>
+          <p>Designed clean and intuitive UI for a mobile app.</p>
+        </div>
+      </div>
+      <div class="portfolio-item" tabindex="0">
+        <img src="https://source.unsplash.com/400x300/?dashboard" alt="Project 3" />
+        <div class="portfolio-info">
+          <h3>Admin Dashboard</h3>
+          <p>Built an interactive dashboard using React.</p>
+        </div>
+      </div>
+      <div class="portfolio-item" tabindex="0">
+        <img src="https://source.unsplash.com/400x300/?design" alt="Project 4" />
+        <div class="portfolio-info">
+          <h3>UX Case Study</h3>
+          <p>Complete UX redesign for an e-commerce platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form id="contactForm" novalidate>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required />
+      <div class="error" id="nameError"></div>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="your.email@example.com" required />
+      <div class="error" id="emailError"></div>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+      <div class="error" id="messageError"></div>
+
+      <button type="submit" class="btn-submit">Send Message</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Your Name. All rights reserved.
+</footer>
+
+<script>
+  // Smooth scroll navigation and active link
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('nav a').forEach(nav => nav.classList.remove('active'));
+      link.classList.add('active');
+      const target = document.querySelector(link.getAttribute('href'));
+      target.scrollIntoView({behavior: 'smooth'});
+    });
+  });
+
+  // Animate skill bars when visible
+  function animateSkills() {
+    const skills = document.querySelectorAll('.skill-progress');
+    skills.forEach(skill => {
+      const rect = skill.getBoundingClientRect();
+      if(rect.top < window.innerHeight) {
+        skill.style.width = skill.getAttribute('data-progress');
+      }
+    });
+  }
+  window.addEventListener('scroll', animateSkills);
+  window.addEventListener('load', animateSkills);
+
+  // Contact form validation
+  const form = document.getElementById('contactForm');
+  const nameInput = form.name;
+  const emailInput = form.email;
+  const messageInput = form.message;
+  const nameError = document.getElementById('nameError');
+  const emailError = document.getElementById('emailError');
+  const messageError = document.getElementById('messageError');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    let valid = true;
+
+    // Clear errors
+    nameError.textContent = '';
+    emailError.textContent = '';
+    messageError.textContent = '';
+
+    if(nameInput.value.trim().length < 3) {
+      nameError.textContent = 'Name must be at least 3 characters.';
+      valid = false;
+    }
+    if(!emailInput.value.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
+      emailError.textContent = 'Please enter a valid email.';
+      valid = false;
+    }
+    if(messageInput.value.trim().length < 10) {
+      messageError.textContent = 'Message must be at least 10 characters.';
+      valid = false;
+    }
+
+    if(valid) {
+      alert('Thank you for reaching out! I will get back to you soon.');
+      form.reset();
+    }
+  });
+</script>
+
+</body>
+</html>
